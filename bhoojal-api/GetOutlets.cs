@@ -16,7 +16,7 @@ namespace bhoojal.api
     {
         [FunctionName("GetOutlets")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "outlets")] HttpRequest req,
             [CosmosDB(databaseName: "bhoojal_outlets", collectionName: "outlet", SqlQuery = "SELECT top 100 * FROM outlet order by outlet._ts desc", ConnectionStringSetting = "CosmosDBConnectionString")] IEnumerable<Outlet> outlets,
     ILogger log)
         {
