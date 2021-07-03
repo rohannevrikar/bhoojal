@@ -20,4 +20,4 @@ INTO
 FROM
     [bhoojal-iot-stream]
 WHERE
-    alert.isAlert = true
+    UDF.ParseAlert(consumedQuota, CAST(GetMetadataPropertyValue([bhoojal-iot-stream], '[User].[quota]') as bigint), phLevel, hardness).isAlert = 1
