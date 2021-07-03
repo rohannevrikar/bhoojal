@@ -8,6 +8,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Microsoft.OpenApi.Extensions;
+using Microsoft.OpenApi.CSharpAnnotations.DocumentGeneration;
+using System.Collections.Generic;
+using System.Xml.Linq;
+using System.Net;
+using System.Net.Http;
 
 namespace bhoojal.api
 {
