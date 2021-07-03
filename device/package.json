@@ -1,0 +1,18 @@
+{
+  "name": "bhoojal-client",
+  "version": "1.0.0",
+  "description": "Bhoojal - Node.js Client",
+  "main": "dummy-device.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Omkar Khair",
+  "license": "MIT",
+  "homepage": "https://github.com/shwetayadkikar/bhoojal",
+  "dependencies": {
+    "azure-iot-device": "^1.7.1",
+    "azure-iot-device-mqtt": "^1.7.1",
+    "chalk": "^4.1.0",
+    "dotenv": "^10.0.0"
+  }
+}
