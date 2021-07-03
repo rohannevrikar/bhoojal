@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30406.217
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E6C563F2-BDC2-4A24-ACBF-01715157DCBB}") = "ProcessAlerts", "ProcessAlerts.asaproj", "{ABBFAA98-8A4A-4B0D-9E32-271DC7476A6A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABBFAA98-8A4A-4B0D-9E32-271DC7476A6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABBFAA98-8A4A-4B0D-9E32-271DC7476A6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABBFAA98-8A4A-4B0D-9E32-271DC7476A6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABBFAA98-8A4A-4B0D-9E32-271DC7476A6A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {85CAD970-B800-42E1-949C-2DD21A1B5AC9}
+	EndGlobalSection
+EndGlobal

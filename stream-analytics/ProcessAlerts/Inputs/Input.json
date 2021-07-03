@@ -1,0 +1,23 @@
+﻿{
+  "Name": "bhoojal-iot-stream",
+  "Type": "Data Stream",
+  "DataSourceType": "IoT Hub",
+  "IoTHubProperties": {
+    "IotHubNamespace": "bhoojal-iot-hub",
+    "EndPoint": "messages/events",
+    "SharedAccessPolicyName": "iothubowner",
+    "SharedAccessPolicyKey": null,
+    "ConsumerGroupName": "$Default"
+  },
+  "DataSourceCredentialDomain": "60b779c4-47de-4e21-8ff3-7d1e91de82d3.StreamAnalystics",
+  "Serialization": {
+    "Type": "Json",
+    "Encoding": "UTF8",
+    "FieldDelimiter": null,
+    "Format": null
+  },
+  "PartitionKey": null,
+  "CompressionType": "None",
+  "Sample": "{\"consumedQuota\":60.10399308056138,\"hardness\":175.46659730080478,\"phLevel\":7.942658606498743,\"timestamp\":\"2021-07-03T20:00:05.643Z\"}",
+  "ScriptType": "Input"
+}
