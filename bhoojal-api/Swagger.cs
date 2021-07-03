@@ -13,13 +13,17 @@ using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Net;
 using System.Net.Http;
+using Microsoft.OpenApi.CSharpAnnotations.DocumentGeneration.Models;
+using System.Linq;
+using Microsoft.OpenApi;
+using System.Text;
 
 namespace bhoojal.api
 {
     public static class Swagger
     {
         [FunctionName("Swagger")]
-        public static async Task<IActionResult> Run(
+        public static async Task<HttpResponseMessage> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
         {
@@ -30,7 +34,7 @@ namespace bhoojal.api
        },
        assemblyPaths: new List<string>()
        {
-            @"bin\AzureFunctionsOpenAPIDemo.dll"
+            @"bin\bhoojal-api.dll"
        },
        openApiDocumentVersion: "V1",
        filterSetVersion: FilterSetVersion.V1
