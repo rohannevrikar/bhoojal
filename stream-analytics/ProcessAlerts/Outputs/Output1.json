@@ -1,0 +1,14 @@
+﻿{
+  "Name": "consumptionarchive",
+  "DataSourceType": "DocumentDB",
+  "DocumentDbProperties": {
+    "AccountId": "bhoojal-cosmos",
+    "AccountKey": null,
+    "Database": "bhoojal_outlets",
+    "ContainerName": "consumption_logs",
+    "DocumentId": null,
+    "PartitionKey": ""
+  },
+  "DataSourceCredentialDomain": "1d972d70-be77-46e9-8f4d-84071316ba64.StreamAnalystics",
+  "ScriptType": "Output"
+}

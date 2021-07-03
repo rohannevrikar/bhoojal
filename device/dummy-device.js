@@ -25,8 +25,14 @@ let consumedQuota = 0;
 setInterval(function(){
   // Simulate telemetry.
   consumedQuota += 50 + (Math.random() * 20);
+  // always safe metrics
+  let phLevel = 6.5 + (Math.random() * 2.5);
+  // Usually moderate hard water, rarely exceeding harmful levels
+  let hardness = 80 + (Math.random() * 120);
   var message = new Message(JSON.stringify({
     consumedQuota: consumedQuota,
+    hardness: hardness,
+    phLevel: phLevel,
     timestamp: new Date()
   }));
 
