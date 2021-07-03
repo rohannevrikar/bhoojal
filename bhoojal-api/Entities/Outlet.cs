@@ -36,6 +36,8 @@ namespace bhoojal.api
         public float? Consumption_Quota { get; set; }
         public float? Consumption_Quota_Available { get; set; }
         public float? Quality_Ph { get; set; }
-        public DateTime?    Quality_UpdatedOn { get; set; }
+        public int?    Quality_UpdatedOn { get; set; }
+
+        public string  Email { get; set; }
     }
 }
