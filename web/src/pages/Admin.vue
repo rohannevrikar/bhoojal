@@ -11,11 +11,16 @@
             patterns combined with water percolation metrics.
           </p>
           <p>
+            <base-input-dropdown>
+              <template slot="title">
+                <i class="fa fa-globe"></i>
+                <b class="caret"></b>
+                <span class="notification">Select City: {{getfilterCityName}}</span>
+              </template>
+              <a v-for="city in cities" :key="city.id" v-on:click="selectCity($event, city.id)" class="dropdown-item" href="#">{{city.name}}</a>
+            </base-input-dropdown>
             <button v-on:click="loadHeatmap">Load Heatmap</button>
           </p>
-          <div v-for="(p, i) in heatmap" :key="i + 10">
-            <span>{{p}}</span>
-          </div>
         </template>
         <AzureMap :center="getfilterCityLocation" :zoom="12" height="600px">
           <AzureMapDataSource
@@ -23,6 +28,12 @@
             :cluster-radius="50"
             :cluster-max-zoom="5"
           >
+            <AzureMapPoint
+              v-for="(item, i) in heatmap"
+              :key="i + 10"
+              :longitude="item.lng"
+              :latitude="item.lat"
+            />
             <AzureMapHeatMapLayer></AzureMapHeatMapLayer>
           </AzureMapDataSource>
         </AzureMap>
@@ -53,26 +64,33 @@ export default {
       cities: [
         {
           name: "Pune",
+          location: [73.802025, 18.614075],
           id: "pune",
         },
         {
           name: "PCMC",
+          location: [73.802025, 18.614075],
           id: "pcmc",
         },
         {
           name: "Mumbai",
+          location: [72.839863, 18.999543],
           id: "mumbai",
         },
         {
           name: "Thane",
+          location: [72.839863, 18.999543],
           id: "thane",
         },
       ],
       selectedCityId: "pune",
-      heatmap: []
+      heatmap: [],
     };
   },
   methods: {
+    selectCity: function (e, cityId) {
+      this.selectedCityId = cityId;
+    },
     loadHeatmap: function () {
       console.log("Loading heatmap for city");
       let scope = this;
@@ -80,8 +98,34 @@ export default {
         .get("https://bhoojal-data-cdn.azureedge.net/heatmaps/pune/2020Q3.json")
         .then((response) => {
           console.log(JSON.parse(response.data.result));
-          scope.heatmap = JSON.parse(response.data.result);
+          let heatmapbuff = JSON.parse(response.data.result);
+          scope.heatmap = [];
+          heatmapbuff.forEach((item) => {
+            scope.heatmap.push(item);
+          });
         });
+    },
+  },
+  computed: {
+    getfilterCityLocation() {
+      let location = null;
+      let context = this;
+      context.cities.forEach((city) => {
+        if (city.id == context.selectedCityId) {
+          location = city.location;
+        }
+      });
+      return location;
+    },
+    getfilterCityName() {
+      let name = null;
+      let context = this;
+      context.cities.forEach((city) => {
+        if (city.id == context.selectedCityId) {
+          name = city.name;
+        }
+      });
+      return name;
     },
   },
   mounted() {
