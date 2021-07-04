@@ -108,7 +108,10 @@
               <div class="card-body">
                 <slot>
                   <ul id="test-next" style="list-style-type: none">
-                    <template v-for="item in scope.previewOutlet.alerts[0].alert.metrics">
+                    <template
+                      v-for="item in scope.previewOutlet.alerts[0].alert
+                        .metrics"
+                    >
                       <li :key="item.value">
                         <span v-if="item.metric === 'consumption'">
                           Consumption exceeded the assigned quota. Consumed:
@@ -217,7 +220,7 @@ export default {
         hardness: null,
         availableQuota: null,
         consumedQuota: null,
-        alerts:[]
+        alerts: [],
       },
     };
   },
