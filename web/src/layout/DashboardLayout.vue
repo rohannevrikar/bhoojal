@@ -2,10 +2,6 @@
   <div class="wrapper">
     <side-bar>
       <mobile-menu slot="content"></mobile-menu>
-      <sidebar-link to="/public">
-        <i class="nc-icon nc-chart-pie-35"></i>
-        <p>Public Dashboard</p>
-      </sidebar-link>
       <sidebar-link to="/admin">
         <i class="nc-icon nc-badge"></i>
         <p>Admin Dashboard</p>
