@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>bhoojal-api</name>
+    </assembly>
+    <members>
+        <member name="M:bhoojal.api.GetOutlet.Run(Microsoft.AspNetCore.Http.HttpRequest,bhoojal.api.Outlet,Microsoft.Extensions.Logging.ILogger,System.String)">
+            <summary>
+            Get Outlet details
+            </summary>
+            <group>Get Outlet details V1</group>
+            <verb>GET</verb>
+            <url>https://bhoojal-api.azurewebsites.net/api/outlet/{city}/{id}</url>        /// 
+            <param name="id" cref="T:System.String" in="path">The outlet id</param>
+            <param  name="city" cref="T:System.String" in="path">The outlet city</param>
+            <response code="200"><see cref="T:bhoojal.api.Outlet"/>Outlet</response>
+            <response code="400"></response>
+            <returns>Outlet</returns>
+        </member>
+        <member name="M:bhoojal.api.GetOutlets.Run(Microsoft.AspNetCore.Http.HttpRequest,System.Collections.Generic.IEnumerable{bhoojal.api.Outlet},Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Get Outlets List
+            </summary>
+            <group>Get Outlets List V1</group>
+            <verb>GET</verb>
+            <url>https://bhoojal-api.azurewebsites.net/api/outlet/{city}/{id}</url>       
+            <response code="200"><see cref="T:bhoojal.api.Outlet"/>Outlet list</response>
+            <response code="400"></response>
+            <returns>Outlet</returns>
+        </member>
+        <member name="M:bhoojal.api.UpdateOutlet.Run(Microsoft.AspNetCore.Http.HttpRequest,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Update Outlet details
+            </summary>
+            <group>Get Outlet details V1</group>
+            <verb>GET</verb>
+            <url>https://bhoojal-api.azurewebsites.net/api/outlet/{city}/{id}</url>        /// 
+            <param name="id" cref="T:System.String" in="path">The outlet id</param>
+            <param  name="city" cref="T:System.String" in="path">The outlet city</param>
+            <response code="200"><see cref="T:bhoojal.api.Outlet"/>Outlet</response>
+            <response code="400"></response>
+            <returns>String</returns>
+        </member>
+    </members>
+</doc>
