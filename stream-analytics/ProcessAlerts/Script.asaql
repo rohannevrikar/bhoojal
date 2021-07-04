@@ -1,0 +1,23 @@
+﻿SELECT
+    GetMetadataPropertyValue([bhoojal-iot-stream], '[User].[outletId]') AS outletid,
+    CAST(GetMetadataPropertyValue([bhoojal-iot-stream], '[User].[quota]') as bigint) AS quota,
+    consumedQuota
+INTO
+    consumptionarchive
+FROM
+    [bhoojal-iot-stream]
+
+SELECT
+    GetMetadataPropertyValue([bhoojal-iot-stream], '[User].[outletId]') AS outletId,
+    CONCAT(DATENAME (yyyy, TIMESTAMP),DATENAME (m, TIMESTAMP),DATENAME (dd, TIMESTAMP),'-',GetMetadataPropertyValue([bhoojal-iot-stream], '[User].[outletId]')) AS id,
+    CAST(GetMetadataPropertyValue([bhoojal-iot-stream], '[User].[quota]') as bigint) AS quota,
+    consumedQuota,
+    hardness,
+    phLevel,
+    UDF.ParseAlert(consumedQuota, CAST(GetMetadataPropertyValue([bhoojal-iot-stream], '[User].[quota]') as bigint), phLevel, hardness) AS alert
+INTO
+    alertscollection
+FROM
+    [bhoojal-iot-stream]
+WHERE
+    UDF.ParseAlert(consumedQuota, CAST(GetMetadataPropertyValue([bhoojal-iot-stream], '[User].[quota]') as bigint), phLevel, hardness).isAlert = 1

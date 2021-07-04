@@ -1,0 +1,14 @@
+﻿{
+  "Name": "alertscollection",
+  "DataSourceType": "DocumentDB",
+  "DocumentDbProperties": {
+    "AccountId": "bhoojal-cosmos",
+    "AccountKey": null,
+    "Database": "bhoojal_outlets",
+    "ContainerName": "alerts",
+    "DocumentId": null,
+    "PartitionKey": ""
+  },
+  "DataSourceCredentialDomain": "2dda3e56-5f00-4dfb-89ae-6be240741cfe.StreamAnalystics",
+  "ScriptType": "Output"
+}
