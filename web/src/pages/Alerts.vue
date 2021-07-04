@@ -8,6 +8,29 @@
             Alerts from various outlets being monitored
           </p>
           <br />
+          <base-input-dropdown>
+            <template slot="title">
+              <i class="fa fa-globe"></i>
+              <b class="caret"></b>
+              <span class="notification"
+                >Select City: {{ getfilterCityName }}</span
+              >
+            </template>
+            <a
+              v-for="city in cities"
+              :key="city.id"
+              v-on:click="selectCity($event, city.id)"
+              class="dropdown-item"
+              href="#"
+              >{{ city.name }}</a
+            >
+          </base-input-dropdown>
+        </template>
+        <div class="card-body">
+          <div v-if="alerts == undefined" class="alert alert-info alert-with-icon" data-notify="container">
+            <span data-notify="icon" class="nc-icon nc-satisfied"></span>
+            <span data-notify="message">Hurray! No Alerts.</span>
+          </div>
           <ul style="list-style-type: none">
             <li v-for="alert in alerts" :key="alert.outletId">
               <card>
@@ -53,7 +76,7 @@
               </card>
             </li>
           </ul>
-        </template>
+        </div>
       </card>
     </div>
   </div>
@@ -90,28 +113,52 @@ export default {
     };
   },
   methods: {
+    reset: function () {
+      this.alerts = [];
+      this.loadAlerts();
+    },
     loadAlerts: function () {
       console.log("Loading alerts for city");
       let scope = this;
       axios
-        .get("https://bhoojal-alerts-api.azurewebsites.net/api/alerts/8")
+        .get(
+          "https://bhoojal-alerts-api.azurewebsites.net/api/GetAlertsByCity?city=" +
+            scope.selectedCityId
+        )
         .then((response) => {
           console.log(response);
-          scope.alerts = response.data;
+          scope.alerts = response.data[0];
         });
+    },
+    selectCity: function (e, cityId) {
+      this.selectedCityId = cityId;
+      this.reset();
+    },
+  },
+  computed: {
+    getfilterCityLocation() {
+      let location = null;
+      let context = this;
+      context.cities.forEach((city) => {
+        if (city.id == context.selectedCityId) {
+          location = city.location;
+        }
+      });
+      return location;
+    },
+    getfilterCityName() {
+      let name = null;
+      let context = this;
+      context.cities.forEach((city) => {
+        if (city.id == context.selectedCityId) {
+          name = city.name;
+        }
+      });
+      return name;
     },
   },
   mounted() {
-    console.log("Loading alerts for city");
-    let scope = this;
-    axios
-      .get(
-        "https://bhoojal-alerts-api.azurewebsites.net/api/GetAlertsByCity?city=pcmc"
-      )
-      .then((response) => {
-        console.log(response);
-        scope.alerts = response.data[0];
-      });
+    this.loadAlerts();
   },
 };
 </script>
