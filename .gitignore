@@ -1,5 +1,7 @@
 
 web/.env
+
+web/.vscode
 # Logs
 logs
 *.log
