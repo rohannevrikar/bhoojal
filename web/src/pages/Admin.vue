@@ -5,8 +5,7 @@
         <template slot="header">
           <h4 class="card-title">GPR Data Dashboard</h4>
           <p class="card-category">
-            This dashboard is accessible for the public in interest of
-            transparency. Select a region and view localized ground water health
+            Select a region and view localized ground water health
             ratings. Ratings are provided based on ground water consumption
             patterns combined with water percolation metrics.
           </p>
@@ -78,7 +77,7 @@ export default {
         },
         {
           name: "PCMC",
-          location: [73.802025, 18.614075],
+          location: [73.78663, 18.608627],
           id: "pcmc",
         },
         {
@@ -88,13 +87,13 @@ export default {
         },
         {
           name: "Thane",
-          location: [72.839863, 18.999543],
+          location: [72.95626, 19.212616],
           id: "thane",
         },
       ],
       quarters: ["2020Q2","2020Q3","2020Q4","2021Q1","2021Q2"],
       selectedCityId: "pune",
-      selectedQuarter: "2020Q3",
+      selectedQuarter: "2021Q2",
       heatmap: [],
       errorMessage: null
     };
