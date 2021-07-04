@@ -14,6 +14,15 @@ namespace bhoojal.api
 {
     public static class GetOutlets
     {
+         /// <summary>
+        /// Get Outlets List
+        /// </summary>
+        /// <group>Get Outlets List V1</group>
+        /// <verb>GET</verb>
+        /// <url>https://bhoojal-api.azurewebsites.net/api/outlet/{city}/{id}</url>       
+        /// <response code="200"><see cref="Outlet"/>Outlet list</response>
+        /// <response code="400"></response>
+        /// <returns>Outlet</returns>
         [FunctionName("GetOutlets")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "outlets")] HttpRequest req,

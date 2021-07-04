@@ -30,7 +30,7 @@ namespace bhoojal.api
             var input = new OpenApiGeneratorConfig(
        annotationXmlDocuments: new List<XDocument>()
        {
-            XDocument.Load(@"AzureFunctionsOpenAPIDemo.xml"),
+            XDocument.Load(@"bhoojal-api-docs.xml"),
        },
        assemblyPaths: new List<string>()
        {
