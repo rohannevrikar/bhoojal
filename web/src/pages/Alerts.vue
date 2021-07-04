@@ -7,19 +7,44 @@
           <p class="card-category">
             Alerts from various outlets being monitored
           </p>
-          <br />        
-          <ul style="list-style-type:none;">
+          <br />
+          <ul style="list-style-type: none">
             <li v-for="alert in alerts" :key="alert.outletId">
               <card>
-                <h4 class="card-title">Alert for outlet {{ alert.outletId }}</h4>
+                <div class="col-5">
+                  <div class="icon-big">
+                    <h4 class="card-title">
+                      <i class="nc-icon nc-notification-70 text-warning"></i>
+                      Alert for outlet {{ alert.outletId }}
+                    </h4>
+                  </div>
+                </div>
+
                 <p class="card-category"></p>
                 <div class="card-body">
                   <slot>
-                    <ul id="test-next" style="list-style-type:none;">
+                    <ul id="test-next" style="list-style-type: none">
                       <template v-for="item in alert.alert.metrics">
                         <li v-if="alert.alert.isAlert" :key="item.value">
-                          Consumption exceeded the assigned quota. Consumed:
-                          {{ item.value }} threshold: {{ item.threshold }}
+                          <span v-if="item.metric === 'consumption'">
+                            Consumption exceeded the assigned quota. Consumed:
+                            {{ item.value }} threshold: {{ item.threshold }}
+                          </span>
+                          <span v-if="item.metric === 'hardness'">
+                            Water hardness exceeded the threshold. Current
+                            hardness:
+                            {{ item.value }} threshold: {{ item.threshold }}
+                          </span>
+                          <span v-if="item.metric === 'phLevelHigh'">
+                            Water pH level exceeded the max threshold. Current
+                            pH level:
+                            {{ item.value }} threshold: {{ item.threshold }}
+                          </span>
+                          <span v-if="item.metric === 'phLevelLow'">
+                            Water pH level is below the minimum threshold.
+                            Current pH level:
+                            {{ item.value }} threshold: {{ item.threshold }}
+                          </span>
                         </li>
                       </template>
                     </ul>
@@ -78,13 +103,15 @@ export default {
   },
   mounted() {
     console.log("Loading alerts for city");
-      let scope = this;
-      axios
-        .get("https://bhoojal-alerts-api.azurewebsites.net/api/GetAlertsByCity?city=pcmc")
-        .then((response) => {
-          console.log(response);
-          scope.alerts = response.data[0];
-        });
+    let scope = this;
+    axios
+      .get(
+        "https://bhoojal-alerts-api.azurewebsites.net/api/GetAlertsByCity?city=pcmc"
+      )
+      .then((response) => {
+        console.log(response);
+        scope.alerts = response.data[0];
+      });
   },
 };
 </script>
