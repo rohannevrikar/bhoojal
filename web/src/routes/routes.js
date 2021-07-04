@@ -22,7 +22,7 @@ const routes = [
   {
     path: '/',
     component: DashboardLayout,
-    redirect: '/public',
+    redirect: '/admin',
     children: [
       {
         path: 'public',
