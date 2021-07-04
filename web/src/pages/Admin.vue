@@ -31,6 +31,8 @@ import {
   AzureMapHeatMapLayer,
 } from "vue-azure-maps";
 
+import axios from 'axios';
+
 export default {
   components: {
     AzureMap,
@@ -39,5 +41,10 @@ export default {
     AzureMapHeatMapLayer,
   },
   methods: {},
+  mounted () {
+    axios
+      .get('https://bhoojal-data-cdn.azureedge.net/heatmaps/pune/2020Q3.json')
+      .then(response => { console.log("coinss") })
+  }
 };
 </script>
