@@ -23,7 +23,7 @@
             </summary>
             <group>Get Outlets List V1</group>
             <verb>GET</verb>
-            <url>https://bhoojal-api.azurewebsites.net/api/outlet/{city}/{id}</url>       
+            <url>https://bhoojal-api.azurewebsites.net/api/{city}/outlets</url>       
             <response code="200"><see cref="T:bhoojal.api.Outlet"/>Outlet list</response>
             <response code="400"></response>
             <returns>Outlet</returns>
