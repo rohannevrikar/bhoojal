@@ -1,0 +1,30 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "post"
+      ],
+      "route":"alerts/{outletId}"
+
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "name": "documents",
+      "type": "cosmosDB",
+      "direction": "in",
+      "databaseName": "bhoojal_outlets",
+      "collectionName": "alerts",
+      "sqlQuery": "SELECT * from c where c.outletId = {outletId}",
+      "connectionStringSetting": "CosmosDbConnectionString"
+    }
+  ]
+}
