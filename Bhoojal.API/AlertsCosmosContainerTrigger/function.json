@@ -1,0 +1,20 @@
+{
+  "bindings": [
+    {
+      "type": "cosmosDBTrigger",
+      "name": "documents",
+      "direction": "in",
+      "leaseCollectionName": "leases",
+      "connectionStringSetting": "bhoojalcosmos_DOCUMENTDB",
+      "databaseName": "bhoojal_outlets",
+      "collectionName": "alerts",
+      "createLeaseCollectionIfNotExists": true
+    },
+    {
+      "type": "sendGrid",
+      "name": "message",
+      "direction": "out",
+      "apiKey": "MySendGridKey"     
+    }
+  ]
+}

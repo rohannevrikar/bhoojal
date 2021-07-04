@@ -25,6 +25,6 @@
       "collectionName": "alerts",
       "sqlQuery": "SELECT * from c where c.outletId = {outletId}",
       "connectionStringSetting": "CosmosDbConnectionString"
-  }
+    }
   ]
 }
