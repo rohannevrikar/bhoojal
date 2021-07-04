@@ -5,7 +5,7 @@
       "name": "documents",
       "direction": "in",
       "leaseCollectionName": "leases",
-      "connectionStringSetting": "bhoojalcosmos_DOCUMENTDB",
+      "connectionStringSetting": "CosmosDbConnectionString",
       "databaseName": "bhoojal_outlets",
       "collectionName": "alerts",
       "createLeaseCollectionIfNotExists": true
