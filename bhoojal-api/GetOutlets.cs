@@ -14,21 +14,22 @@ namespace bhoojal.api
 {
     public static class GetOutlets
     {
-         /// <summary>
+        /// <summary>
         /// Get Outlets List
         /// </summary>
         /// <group>Get Outlets List V1</group>
         /// <verb>GET</verb>
-        /// <url>https://bhoojal-api.azurewebsites.net/api/outlet/{city}/{id}</url>       
+        /// <url>https://bhoojal-api.azurewebsites.net/api/{city}/outlets</url>       
         /// <response code="200"><see cref="Outlet"/>Outlet list</response>
         /// <response code="400"></response>
         /// <returns>Outlet</returns>
         [FunctionName("GetOutlets")]
         public static async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "outlets")] HttpRequest req,
-            [CosmosDB(databaseName: "bhoojal_outlets", collectionName: "outlet", SqlQuery = "SELECT top 100 * FROM outlet order by outlet._ts desc", ConnectionStringSetting = "CosmosDBConnectionString")] IEnumerable<Outlet> outlets,
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = "{city}/outlets")] HttpRequest req,
+            [CosmosDB(databaseName: "bhoojal_outlets", collectionName: "outlet", PartitionKey = "{city}", ConnectionStringSetting = "CosmosDBConnectionString")] IEnumerable<Outlet> outlets,
     ILogger log)
         {
+            //TODO: Implement paging
             log.LogInformation("Get outlets request received.");
 
             if (outlets is null)
