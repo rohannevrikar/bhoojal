@@ -93,9 +93,8 @@
                 class="text-center d-flex justify-content-center"
               ></div>
             </card>
-          </div>
-          <div class="col-4">
-            <card v-if="previewOutlet.id" class="card">
+            <template v-for="a in outletAlerts">
+            <card :key="a.id" v-if="outletAlerts > 0" class="card">
               <div class="author">
                 <a href="#">
                   <h4 class="title">
@@ -108,10 +107,7 @@
               <div class="card-body">
                 <slot>
                   <ul id="test-next" style="list-style-type: none">
-                    <template
-                      v-for="item in scope.previewOutlet.alerts[0].alert
-                        .metrics"
-                    >
+                    <template v-for="item in outletAlerts[0].alert.metrics">
                       <li :key="item.value">
                         <span v-if="item.metric === 'consumption'">
                           Consumption exceeded the assigned quota. Consumed:
@@ -142,6 +138,10 @@
                 class="text-center d-flex justify-content-center"
               ></div>
             </card>
+            </template>
+          </div>
+          <div class="col-4">
+            
           </div>
         </div>
       </card>
@@ -219,9 +219,9 @@ export default {
         phLevel: null,
         hardness: null,
         availableQuota: null,
-        consumedQuota: null,
-        alerts: [],
+        consumedQuota: null
       },
+      outletAlerts: []
     };
   },
   methods: {
@@ -242,8 +242,7 @@ export default {
           scope.previewOutlet.quantityScore = outlet.quantity_Score;
           scope.previewOutlet.phLevel = outlet.quality_Ph;
           scope.previewOutlet.hardness = outlet.quality_hardness;
-          scope.previewOutlet.availableQuota =
-            outlet.consumption_Quota_Available;
+          scope.previewOutlet.availableQuota = outlet.consumption_Quota_Available;
           scope.previewOutlet.consumedQuota = outlet.consumption_Quota;
 
           axios
@@ -253,7 +252,11 @@ export default {
             )
             .then((response) => {
               console.log(response);
-              scope.previewOutlet.alerts = response.data;
+              scope.outletAlerts = [];
+              response.data.forEach(aa => {
+                console.log("pushed")
+                scope.outletAlerts.push(aa);
+              });
             })
             .catch((error) => {
               // scope.errorMessage =
