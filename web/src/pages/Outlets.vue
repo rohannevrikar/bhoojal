@@ -4,9 +4,7 @@
       <card>
         <template slot="header">
           <h4 class="card-title">Manage Outlets</h4>
-          <p class="card-category">
-            View outlets registered on the system.
-          </p>
+          <p class="card-category">View outlets registered on the system.</p>
           <div>
             <div v-if="errorMessage" class="alert alert-warning">
               <span><b> Warning - </b> {{ errorMessage }}"</span>
@@ -74,24 +72,72 @@
               <div class="author">
                 <a href="#">
                   <h4 class="title">
-                    Outlet #{{previewOutlet.id}}<br />
-                    <small>{{previewOutlet.city}}</small>
+                    Outlet #{{ previewOutlet.id }}<br />
+                    <small>{{ previewOutlet.city }}</small>
                   </h4>
                 </a>
               </div>
               <p class="description">
-                <strong>Quality Score:</strong>{{previewOutlet.qualityScore}}<br />
-                <strong>Quantity Score:</strong>{{previewOutlet.quantityScore}}<br />
-                <strong>pH Level:</strong>{{previewOutlet.phLevel}}<br />
-                <strong>Hardness:</strong>{{previewOutlet.hardness}}<br />
-                <strong>Quota:</strong>{{previewOutlet.availableQuota}}<br />
-                <strong>Consumed Quota:</strong>{{previewOutlet.consumedQuota}}<br />
+                <strong>Quality Score:</strong>{{ previewOutlet.qualityScore
+                }}<br />
+                <strong>Quantity Score:</strong>{{ previewOutlet.quantityScore
+                }}<br />
+                <strong>pH Level:</strong>{{ previewOutlet.phLevel }}<br />
+                <strong>Hardness:</strong>{{ previewOutlet.hardness }}<br />
+                <strong>Quota:</strong>{{ previewOutlet.availableQuota }}<br />
+                <strong>Consumed Quota:</strong>{{ previewOutlet.consumedQuota
+                }}<br />
               </p>
               <div
                 slot="footer"
                 class="text-center d-flex justify-content-center"
-              >
+              ></div>
+            </card>
+          </div>
+          <div class="col-4">
+            <card v-if="previewOutlet.id" class="card">
+              <div class="author">
+                <a href="#">
+                  <h4 class="title">
+                    Outlet #{{ previewOutlet.id }}<br />
+                    <small>{{ previewOutlet.city }}</small>
+                    <small>Alerts</small>
+                  </h4>
+                </a>
               </div>
+              <div class="card-body">
+                <slot>
+                  <ul id="test-next" style="list-style-type: none">
+                    <template v-for="item in scope.previewOutlet.alerts[0].alert.metrics">
+                      <li :key="item.value">
+                        <span v-if="item.metric === 'consumption'">
+                          Consumption exceeded the assigned quota. Consumed:
+                          {{ item.value }} threshold: {{ item.threshold }}
+                        </span>
+                        <span v-if="item.metric === 'hardness'">
+                          Water hardness exceeded the threshold. Current
+                          hardness:
+                          {{ item.value }} threshold: {{ item.threshold }}
+                        </span>
+                        <span v-if="item.metric === 'phLevelHigh'">
+                          Water pH level exceeded the max threshold. Current pH
+                          level:
+                          {{ item.value }} threshold: {{ item.threshold }}
+                        </span>
+                        <span v-if="item.metric === 'phLevelLow'">
+                          Water pH level is below the minimum threshold. Current
+                          pH level:
+                          {{ item.value }} threshold: {{ item.threshold }}
+                        </span>
+                      </li>
+                    </template>
+                  </ul>
+                </slot>
+              </div>
+              <div
+                slot="footer"
+                class="text-center d-flex justify-content-center"
+              ></div>
             </card>
           </div>
         </div>
@@ -171,6 +217,7 @@ export default {
         hardness: null,
         availableQuota: null,
         consumedQuota: null,
+        alerts:[]
       },
     };
   },
@@ -192,8 +239,26 @@ export default {
           scope.previewOutlet.quantityScore = outlet.quantity_Score;
           scope.previewOutlet.phLevel = outlet.quality_Ph;
           scope.previewOutlet.hardness = outlet.quality_hardness;
-          scope.previewOutlet.availableQuota = outlet.consumption_Quota_Available;
+          scope.previewOutlet.availableQuota =
+            outlet.consumption_Quota_Available;
           scope.previewOutlet.consumedQuota = outlet.consumption_Quota;
+
+          axios
+            .get(
+              "https://bhoojal-alerts-api.azurewebsites.net/api/alerts/" +
+                scope.previewOutlet.id
+            )
+            .then((response) => {
+              console.log(response);
+              scope.previewOutlet.alerts = response.data;
+            })
+            .catch((error) => {
+              // scope.errorMessage =
+              //   "Alert data for outlet " +
+              //   scope.previewOutlet.id +
+              //   " is not available.";
+              console.log("Error", error);
+            });
         }
       });
     },
