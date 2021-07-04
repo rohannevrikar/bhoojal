@@ -26,8 +26,12 @@ namespace bhoojal.api
         [FunctionName("GetOutlets")]
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = "{city}/outlets")] HttpRequest req,
-            [CosmosDB(databaseName: "bhoojal_outlets", collectionName: "outlet", PartitionKey = "{city}", ConnectionStringSetting = "CosmosDBConnectionString")] IEnumerable<Outlet> outlets,
-    ILogger log)
+            [CosmosDB(databaseName: "bhoojal_outlets",
+            collectionName: "outlet",
+            PartitionKey = "{city}",
+            SqlQuery = "select * from ToDoItems r where r.city = {city}",
+            ConnectionStringSetting = "CosmosDBConnectionString")] IEnumerable<Outlet> outlets,
+            ILogger log)
         {
             //TODO: Implement paging
             log.LogInformation("Get outlets request received.");

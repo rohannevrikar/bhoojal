@@ -1,4 +1,4 @@
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.IO;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
@@ -23,14 +23,22 @@ namespace bhoojal.api
 
             string ADB_AccessToken = Environment.GetEnvironmentVariable("ADB_AccessToken");
             string ADB_Endpoint = Environment.GetEnvironmentVariable("ADB_Endpoint");
-            string ADB_JobId = Environment.GetEnvironmentVariable("ADB_JobId");
-            log.LogInformation($"{ADB_AccessToken}");
+            string ADB_GPR_JobId = Environment.GetEnvironmentVariable("ADB_GPR_JobId");
+            string ADB_Polygon_JobId = Environment.GetEnvironmentVariable("ADB_Polygon_JobId");
 
             //TODO: Move to service
             string triggerAPIEndpoint = $"/api/2.0/jobs/run-now";
-            DatabricksJob job = new DatabricksJob()
+            DatabricksJob gpr_job = new DatabricksJob()
             {
-                Job_Id = Convert.ToInt32(ADB_JobId),
+                Job_Id = Convert.ToInt32(ADB_GPR_JobId),
+                Notebook_Params = new NotebookParams()
+                {
+                    FileName = name
+                }
+            };
+            DatabricksJob polygon_job = new DatabricksJob()
+            {
+                Job_Id = Convert.ToInt32(ADB_Polygon_JobId),
                 Notebook_Params = new NotebookParams()
                 {
                     FileName = name
@@ -39,20 +47,36 @@ namespace bhoojal.api
             log.LogInformation("Triggering job");
 
             HttpClient client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Post, $"{ADB_Endpoint}{triggerAPIEndpoint}");
-            request.Content = new StringContent(JsonConvert.SerializeObject(job), System.Text.Encoding.UTF8, "application/json");
-            request.Headers.Add("Authorization", $"Bearer {ADB_AccessToken}");
-            var response = await client.SendAsync(request);
-            if (response.IsSuccessStatusCode)
+            var gprRequest = new HttpRequestMessage(HttpMethod.Post, $"{ADB_Endpoint}{triggerAPIEndpoint}");
+            gprRequest.Content = new StringContent(JsonConvert.SerializeObject(gpr_job), System.Text.Encoding.UTF8, "application/json");
+            gprRequest.Headers.Add("Authorization", $"Bearer {ADB_AccessToken}");
+            var gprResponse = await client.SendAsync(gprRequest);
+            if (gprResponse.IsSuccessStatusCode)
             {
-                log.LogInformation("Job triggered");
-                var content = response.Content;
+                log.LogInformation("GPR Job triggered");
+                var content = gprResponse.Content;
                 string jsonContent = content.ReadAsStringAsync().Result;
                 log.LogInformation(jsonContent);
             }
             else
             {
-                log.LogInformation($"Job trigger API failed. Response code: {response.StatusCode}, reason: {response.ReasonPhrase}");
+                log.LogInformation($"GPR Job trigger API failed. Response code: {gprResponse.StatusCode}, reason: {gprResponse.ReasonPhrase}");
+            }
+
+            var polygonRequest = new HttpRequestMessage(HttpMethod.Post, $"{ADB_Endpoint}{triggerAPIEndpoint}");
+            polygonRequest.Content = new StringContent(JsonConvert.SerializeObject(polygon_job), System.Text.Encoding.UTF8, "application/json");
+            polygonRequest.Headers.Add("Authorization", $"Bearer {ADB_AccessToken}");
+            var polygonResponse = await client.SendAsync(polygonRequest);
+            if (polygonResponse.IsSuccessStatusCode)
+            {
+                log.LogInformation("Polygon Job triggered");
+                var content = polygonResponse.Content;
+                string jsonContent = content.ReadAsStringAsync().Result;
+                log.LogInformation(jsonContent);
+            }
+            else
+            {
+                log.LogInformation($"Polygon Job trigger API failed. Response code: {polygonResponse.StatusCode}, reason: {polygonResponse.ReasonPhrase}");
             }
         }
 
