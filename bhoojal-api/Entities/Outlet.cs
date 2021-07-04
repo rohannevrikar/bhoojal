@@ -7,27 +7,30 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace bhoojal.api
 {
     public class Outlet
     {
-        //        {
-        //     "id": "1",
-        //     "city": "pune",
-        //     "quantity_score": -0.1,
-        //     "consumption_quota": 10000,
-        //     "consumption_quota_available": 10000,
-        //     "quality_score": -0.1,
-        //     "quality_ph": -0.1,
-        //     "quality_hardness": -0.1,
-        //     "quality_updatedon": "",
-        //     "_rid": "QJplAIr5B+MBAAAAAAAAAA==",
-        //     "_self": "dbs/QJplAA==/colls/QJplAIr5B+M=/docs/QJplAIr5B+MBAAAAAAAAAA==/",
-        //     "_etag": "\"a20051c6-0000-0d00-0000-60d5b60c0000\"",
-        //     "_attachments": "attachments/",
-        //     "_ts": 1624618508
-        // }
+    //     {
+    //      "id": "8",
+    // "city": "mumbai",
+    // "quantity_score": 0,
+    // "consumption_quota": 10000,
+    // "email": "demo.bhoojal@hotmail.com",
+    // "consumption_quota_available": 9054,
+    // "quality_score": 0,
+    // "quality_ph": 5,
+    // "quality_hardness": 123,
+    // "quality_updatedon": 1624632958,
+    // "location": {
+    //     "type": "Point",
+    //     "coordinates": [
+    //         72.832489,
+    //         18.9553242
+    //     ]
+    // },
         public string Id { get; set; }
         public string City { get; set; }
 
@@ -36,8 +39,17 @@ namespace bhoojal.api
         public float? Consumption_Quota { get; set; }
         public float? Consumption_Quota_Available { get; set; }
         public float? Quality_Ph { get; set; }
+
+        public float? quality_hardness {get; set;}
         public int?    Quality_UpdatedOn { get; set; }
 
         public string  Email { get; set; }
+        public GPRLocation Location { get; set; }
+    }
+
+    public class GPRLocation
+    {
+        public string Type { get; set; }
+        public List<float> Coordinates {get; set;}
     }
 }
