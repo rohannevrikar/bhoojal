@@ -29,6 +29,7 @@ namespace bhoojal.api
             [CosmosDB(databaseName: "bhoojal_outlets", collectionName: "outlet", PartitionKey = "{city}", ConnectionStringSetting = "CosmosDBConnectionString")] IEnumerable<Outlet> outlets,
     ILogger log)
         {
+            //TODO: Implement paging
             log.LogInformation("Get outlets request received.");
 
             if (outlets is null)
